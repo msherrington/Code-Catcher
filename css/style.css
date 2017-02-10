@@ -1,3 +1,49 @@
 body {
-  background-color: red;
+  background-color: white;
+}
+
+.container {
+  position: relative;
+}
+
+.codeWall {
+  background-image: url('images/codewall.jpg');
+  width: 1000px;
+  height: 700px;
+  background-color: lightgrey;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+div#coder {
+  position: absolute;
+  bottom: -300px;
+  /*background-color: red;*/
+  /*display: block;*/
+  height: 150px;
+  width: 150px;
+  left: 49%;
+  margin: 0 auto;
+  bottom: 0;
+}
+
+
+#column1 {
+  position: absolute;
+  top: -35px;
+  left: 30%;
+  /*background-color: yellow;*/
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+
+#column2 {
+  position: absolute;
+  top: -35px;
+  left: 60%;
+  /*background-color: yellow;*/
+  width: 100px;
+  height: 100px;
+  text-align: center;
 }
