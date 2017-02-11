@@ -7,6 +7,7 @@ body {
 }
 
 .codeWall {
+  /*background-color: blue;*/
   background-image: url('images/codewall.jpg');
   width: 1000px;
   height: 700px;
