@@ -8,12 +8,15 @@ body {
 
 .codeWall {
   /*background-color: blue;*/
-  background-image: url('images/codewall.jpg');
-  width: 1000px;
+  /*background-image: url('images/codewall.jpg');*/
+  /*background-position: center;*/
+  /*background-size: cover;*/
+  width: 1200px;
   height: 700px;
   background-color: lightgrey;
   margin: 0 auto;
   margin-top: 100px;
+  position: relative;
 }
 
 div#coder {
@@ -23,7 +26,7 @@ div#coder {
   /*display: block;*/
   height: 150px;
   width: 150px;
-  left: 49%;
+  left: 525px;
   margin: 0 auto;
   bottom: 0;
 }
@@ -31,9 +34,8 @@ div#coder {
 
 #column1 {
   position: absolute;
-  top: -35px;
-  left: 30%;
-  /*background-color: yellow;*/
+  top: 0;
+  left: 10px;
   width: 100px;
   height: 100px;
   text-align: center;
@@ -41,9 +43,80 @@ div#coder {
 
 #column2 {
   position: absolute;
-  top: -35px;
-  left: 60%;
-  /*background-color: yellow;*/
+  top: 0;
+  left: 130px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+
+#column3 {
+  position: absolute;
+  top: 0;
+  left: 250px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+
+#column4 {
+  position: absolute;
+  top: 0;
+  left: 370px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+
+#column5 {
+  position: absolute;
+  top: 0;
+  left: 490px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+
+#column6 {
+  position: absolute;
+  top: 0;
+  left: 610px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+
+#column7 {
+  position: absolute;
+  top: 0;
+  left: 730px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+
+#column8 {
+  position: absolute;
+  top: 0;
+  left: 850px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+
+#column9 {
+  position: absolute;
+  top: 0;
+  left: 970px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+}
+
+#column10 {
+  position: absolute;
+  top: 0;
+  left: 1090px;
   width: 100px;
   height: 100px;
   text-align: center;
