@@ -1,123 +1,16 @@
 console.log('JS loaded!');
 $(() => {
 
-
-
   const $codewall = $('.codewall');
 
   // code catcher dude
   const $coder = $('#coder');
 
-  // vars for falling divs
-  const $fallingDiv1 = $('#column1');
-  const $fallingDiv2 = $('#column2');
-  const $fallingDiv3 = $('#column3');
-  const $fallingDiv4 = $('#column4');
-  const $fallingDiv5 = $('#column5');
-  const $fallingDiv6 = $('#column6');
-  const $fallingDiv7 = $('#column7');
-  const $fallingDiv8 = $('#column8');
-  const $fallingDiv9 = $('#column9');
-  const $fallingDiv10 = $('#column10');
+  // var for falling divs
+  const $fallingDivs = $('.column');
 
-  // array of falling divs, for random selection
-  const $fallingDivs = [ $fallingDiv1, $fallingDiv2, $fallingDiv3, $fallingDiv4, $fallingDiv5, $fallingDiv6, $fallingDiv7, $fallingDiv8, $fallingDiv9, $fallingDiv10 ];
-
-  //hide all falling divs before the game starts
-  function hideFallingDivs() {
-    for (let i = 0; i < $fallingDivs.length; i++) {
-      $fallingDivs[i].hide();
-    }
-  }
-  hideFallingDivs();
-
-  // vars for images of falling divs
-  const $fallingImage1 = $('#drop1');
-  const $fallingImage2 = $('#drop2');
-  const $fallingImage3 = $('#drop3');
-  const $fallingImage4 = $('#drop4');
-  const $fallingImage5 = $('#drop5');
-  const $fallingImage6 = $('#drop6');
-  const $fallingImage7 = $('#drop7');
-  const $fallingImage8 = $('#drop8');
-  const $fallingImage9 = $('#drop9');
-  const $fallingImage10 = $('#drop10');
-
-  // array of falling image vars, for random selection
-  const $fallingImages = [ $fallingImage1, $fallingImage2, $fallingImage3, $fallingImage4, $fallingImage5, $fallingImage6, $fallingImage7, $fallingImage8, $fallingImage9, $fallingImage10 ];
-
-
-  //create variable ready for randomly selecting a falling div
-  let $randomArrayChoice = null;
-  //create variable ready for randomly selecting a falling image
-  let $imageFunctionChoice = null;
-
-
-
-  function drop(){
-    //array of functions to assign image to falling div
-    const $imageFunctions = [ html, bug, css, css, bug, jScript, html, css, jScript, css, bug, html ];
-
-    //generates random index of $fallingDivs and $fallingImages arrays
-    $randomArrayChoice = Math.floor(Math.random()*$fallingImages.length);
-    //generates random index of $imageFunctions array
-    $imageFunctionChoice = Math.floor(Math.random()*$imageFunctions.length);
-
-    //function assigns 'bug' image to falling div
-    function bug() {
-      $fallingImages[$randomArrayChoice].attr('src', 'images/bug.png', 'class', 'bug', 'height', '50px', 'width', '50px');
-    }
-    //function assigns 'html' image to falling div
-    function html() {
-      $fallingImages[$randomArrayChoice].attr('src', 'images/html.png', 'class', 'code');
-    }
-    //function assigns 'css' image to falling div
-    function css() {
-      $fallingImages[$randomArrayChoice].attr('src', 'images/css3.png', 'class', 'code');
-    }
-    //function assigns 'css' image to falling div
-    function jScript() {
-      $fallingImages[$randomArrayChoice].attr('src', 'images/javascript.png', 'class', 'code');
-    }
-
-    //chooses random image function and runs it
-    $imageFunctions[$imageFunctionChoice]();
-
-    //fades-in random div with image, animates div to make it fall
-    $fallingDivs[$randomArrayChoice].fadeIn('slow').animate({
-      top: 500
-    }, {
-      duration: 3000,
-      easing: 'linear',
-      complete: reset,
-      progress: function() {
-        // console.log($(this).position());
-        if (($(this).position().top > 400) && ($(this).position().top < 500) && ($coder.position().left >= ($(this).position().left + 100)) && ($coder.position().left <= ($(this).position().left) - 100)) {
-          alert('collide');
-          // if id = bug, shake
-        }
-      }
-    });
-  }
-
-  //reset the falling div to the top and hide it again
-  function reset() {
-    $(this).css({
-      top: 0
-    });
-    $(this).hide();
-  }
-
-  //start random divs falling
-  function startGame() {
-    setInterval(() => {
-      drop();
-    }, 2000);
-  }
-
-  startGame();
-
-  // drop();
+  //hide falling divs before game starts
+  $fallingDivs.hide();
 
   //event listener for arrrow keys to move coder
   var pressed = false;
@@ -125,17 +18,17 @@ $(() => {
     if(!pressed){ //only start animation once
       const width = $codewall.width();
       switch (e.which) {
-        case 37:
-          console.log($coder.position());
+        case 37:  //left arrow key
+          // console.log($coder.position());
           $coder.stop().animate({
-            left: '-=' + width //allow the user the move the div over the whole doc
-          }, 3000); //left arrow key
+            left: '-=' + width //allow coder to move along whole codewall
+          }, 3000);
           break;
-        case 39:
-          console.log($coder.position());
+        case 39:  //right arrow key
+          // console.log($coder.position());
           $coder.stop().animate({
-            left: '+=' + width //allow the user the move the div over the whole doc
-          }, 3000); //left arrow key
+            left: '+=' + width //allow coder to move along whole codewall
+          }, 3000);
           break;
       }
     }
@@ -144,6 +37,86 @@ $(() => {
     $coder.stop(); // stop the current animation
     pressed = false;
   });
+
+  let $score = 0;
+  const $scoreDisplay = $('.score');
+
+
+  function drop(){
+    //array to assign image to falling div
+    const images = ['bug', 'html', 'html', 'html', 'html', 'html', 'css', 'javascript'];
+    //generates random index of $fallingDivs and $fallingImages arrays
+    const $randomDiv = $fallingDivs.eq(Math.floor(Math.random()*$fallingDivs.length));
+    const chosenImage = images[Math.floor(Math.random() * images.length)];
+
+    //assigns random img to falling div and changes class
+    $randomDiv
+      .find('img')
+      .attr('src', `images/${chosenImage}.png`)
+      .attr('class', chosenImage);
+
+    let catchResult = null;
+
+    //fades-in random div with image, animates div to make it fall
+    $randomDiv.fadeIn('slow').animate({
+      top: 500
+    }, {
+      duration: 3000,
+      easing: 'linear',
+      complete: reset,
+      progress: function() {
+        // && ($(this).position().top < 500)
+        if (($(this).position().top >= 460) && ($coder.position().left < ($(this).position().left + 20)) && ($coder.position().left > ($(this).position().left) - 20)) {
+          $coder.stop();
+          pressed = false;
+          if (chosenImage === 'bug' && catchResult === null) {
+            catchResult = 'bug';
+            // if id = bug, shake
+            $coder.addClass('shaking'); //not sure where to put the reset
+            pressed = true;
+          } else if (chosenImage === 'html' && catchResult === null) {
+            catchResult = 'html';
+            $score++;
+            $scoreDisplay.text($score);
+            console.log($score);
+          } else if (chosenImage === 'css' && catchResult === null) {
+            catchResult = 'css';
+            $score = $score + 3;
+            $scoreDisplay.text($score);
+            console.log($score);
+          } else if (chosenImage === 'javascript' && catchResult === null) {
+            catchResult = 'javascript';
+            $score = $score + 5;
+            $scoreDisplay.text($score);
+            console.log($score);
+          }
+        }
+      }
+    });
+  }
+
+
+  //reset the falling div to the top and hide it again
+  function reset() {
+    $(this).css({
+      top: 0
+    });
+    $(this).hide();
+    $coder.removeClass('shaking'); // where to move this?
+  }
+
+  //start random divs falling
+  function startGame() {
+    setInterval(() => {
+      drop();
+    }, 1000);
+  }
+
+  startGame();
+
+
+  // drop();
+
 
 
 
