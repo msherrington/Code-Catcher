@@ -23,6 +23,13 @@ $(() => {
   // array of falling divs, for random selection
   const $fallingDivs = [ $fallingDiv1, $fallingDiv2, $fallingDiv3, $fallingDiv4, $fallingDiv5, $fallingDiv6, $fallingDiv7, $fallingDiv8, $fallingDiv9, $fallingDiv10 ];
 
+  //hide all falling divs before the game starts
+  function hideFallingDivs() {
+    for (let i = 0; i < $fallingDivs.length; i++) {
+      $fallingDivs[i].hide();
+    }
+  }
+  hideFallingDivs();
 
   // vars for images of falling divs
   const $fallingImage1 = $('#drop1');
@@ -45,25 +52,11 @@ $(() => {
   //create variable ready for randomly selecting a falling image
   let $imageFunctionChoice = null;
 
-  //start the game with all falling divs hidden
-  function hideFallingDivs() {
-    $fallingDiv1.hide();
-    $fallingDiv2.hide();
-    $fallingDiv3.hide();
-    $fallingDiv4.hide();
-    $fallingDiv5.hide();
-    $fallingDiv6.hide();
-    $fallingDiv7.hide();
-    $fallingDiv8.hide();
-    $fallingDiv9.hide();
-    $fallingDiv10.hide();
-  }
-  hideFallingDivs();
 
 
   function drop(){
     //array of functions to assign image to falling div
-    const $imageFunctions = [ html, bug, html, html, bug, html, html, html, html, html, bug, html ];
+    const $imageFunctions = [ html, bug, css, css, bug, jScript, html, css, jScript, css, bug, html ];
 
     //generates random index of $fallingDivs and $fallingImages arrays
     $randomArrayChoice = Math.floor(Math.random()*$fallingImages.length);
@@ -72,22 +65,25 @@ $(() => {
 
     //function assigns 'bug' image to falling div
     function bug() {
-      $fallingImages[$randomArrayChoice].attr('src', 'images/bug.png', 'class', 'bug');
+      $fallingImages[$randomArrayChoice].attr('src', 'images/bug.png', 'class', 'bug', 'height', '50px', 'width', '50px');
     }
     //function assigns 'html' image to falling div
     function html() {
       $fallingImages[$randomArrayChoice].attr('src', 'images/html.png', 'class', 'code');
     }
+    //function assigns 'css' image to falling div
+    function css() {
+      $fallingImages[$randomArrayChoice].attr('src', 'images/css3.png', 'class', 'code');
+    }
+    //function assigns 'css' image to falling div
+    function jScript() {
+      $fallingImages[$randomArrayChoice].attr('src', 'images/javascript.png', 'class', 'code');
+    }
 
     //chooses random image function and runs it
     $imageFunctions[$imageFunctionChoice]();
 
-      //chooses random div and shows (un-hides) it
-    // $fallingDivs[$randomArrayChoice].show();
-      //chooses random div and shows it with a slow fade-in
-    // $fallingDivs[$randomArrayChoice].fadeIn('slow');
-
-    //animates the random div, making it fall
+    //fades-in random div with image, animates div to make it fall
     $fallingDivs[$randomArrayChoice].fadeIn('slow').animate({
       top: 500
     }, {
@@ -96,15 +92,15 @@ $(() => {
       complete: reset,
       progress: function() {
         // console.log($(this).position());
-        if (($(this).position().top > 360) && ($(this).position().top < 600) && ($coder.position().left > ($(this).position().left + 50)) && ($coder.position().left < ($(this).position().left - 35))) {
+        if (($(this).position().top > 400) && ($(this).position().top < 500) && ($coder.position().left >= ($(this).position().left + 100)) && ($coder.position().left <= ($(this).position().left) - 100)) {
           alert('collide');
-          // shake();
           // if id = bug, shake
         }
       }
     });
   }
 
+  //reset the falling div to the top and hide it again
   function reset() {
     $(this).css({
       top: 0
@@ -112,6 +108,7 @@ $(() => {
     $(this).hide();
   }
 
+  //start random divs falling
   function startGame() {
     setInterval(() => {
       drop();
@@ -120,9 +117,9 @@ $(() => {
 
   startGame();
 
+  // drop();
 
-
-  //testing new event listener for arrrow keys
+  //event listener for arrrow keys to move coder
   var pressed = false;
   $(document).on('keydown', (e) => {
     if(!pressed){ //only start animation once
@@ -149,6 +146,8 @@ $(() => {
   });
 
 
+
+
   // OLD event listener for left/right arrow keys
   // $(document).on('keyup', (e) => {
   //   switch (e.which) {
@@ -170,13 +169,12 @@ $(() => {
 
 
 
-  // function shake() {
-  //   $('#coder').effect( 'shake', {times: 1}, 200 );
-  // }
-
+  //event listener for when coder is moving
   // $coder.on('change' (e) {
-  //   //event listener for when he's moving
-  // })
+  //   if ((e.target).position().left < -20) {
+  //     $coder.position.left = -20
+  //   }
+  // });
 
 
 //PSEUDO CODE
@@ -189,7 +187,10 @@ $(() => {
 //function to decide whether div is "code or bug"
 
 //styling: codeWall image
-
+//sound effects!
+//welcome screen with instructions page and play button
+//main screen - timer, score, lives, hi score
+//play again button
 
 //THIS IS THE BOTTOM OF THE DOM CONTENT LOADER
 });
