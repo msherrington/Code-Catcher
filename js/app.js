@@ -1,6 +1,33 @@
 console.log('JS loaded!');
 $(() => {
 
+
+    // TO DO LIST...
+    //-------------------
+    // how to temp disable func keys when shaking?
+    // how to clear shake from css? run in sequence?
+    // NEED RESET WHEN TIMER RUNS OUT!!!
+    // BOUNDARIES FOR CODER dude
+    // DEBUG DROPPING IMAGES CHANGING HALFWAY THROUGH DROPPING
+    // INCREASE SPEED AT A CERTAIN SCORE
+    // ADD SOUND EFFECTS!!
+    // HI SCORE BOX
+    //styling: codeWall image
+    //sound effects!
+    //Instruction page (slide in)
+    // hide everything add just show when using buttons
+    //main screen - timer, score, lives, hi score
+    //play again button
+    //
+
+    // how to change margin of codewall now??
+    // ASK CONNOR ABOUT THIS!!!
+    //lock scroll background-color
+    //.animate Scroll to element in a function
+
+
+  const $playButton = $('#play');
+
   const $codewall = $('.codewall');
 
   // code catcher dude
@@ -38,13 +65,43 @@ $(() => {
     pressed = false;
   });
 
+  const $timer = $('.timer');
+
+  let timeRemaining = 60;
+  let timer = null;
+
+  // timer countdown function
+  function startTime() {
+    $scoreDisplay.text(0);
+    timer = setInterval(() => {
+      if (timeRemaining > 0) {
+        timeRemaining--;
+        $timer.html(timeRemaining);
+      } else if (timeRemaining === 0) {
+        clearInterval(timer);
+        timeRemaining = 60;
+      }
+    }, 1000);
+  }
+
+  // variable for the score
+  // let $hiScore = 0;
   let $score = 0;
   const $scoreDisplay = $('.score');
+  // const $highScoreDisplay = $('.hiscore');
+  //
+  // if ($hiScore < $score) {
+  //   $hiScore = $score;
+  //   alert($hiScore);
+  //   $highScoreDisplay.push($hiScore);
+  // }
 
 
   function drop(){
+
     //array to assign image to falling div
-    const images = ['bug', 'html', 'html', 'html', 'html', 'html', 'css', 'javascript'];
+    const images = [ 'html', 'html', 'html', 'html', 'html', 'html', 'html', 'html', 'css', 'css', 'css', 'css', 'bug', 'bug', 'bug', 'bug', 'javascript', 'javascript'];
+
     //generates random index of $fallingDivs and $fallingImages arrays
     const $randomDiv = $fallingDivs.eq(Math.floor(Math.random()*$fallingDivs.length));
     const chosenImage = images[Math.floor(Math.random() * images.length)];
@@ -55,7 +112,13 @@ $(() => {
       .attr('src', `images/${chosenImage}.png`)
       .attr('class', chosenImage);
 
+    // variable to store value of last falling image caught by coder
     let catchResult = null;
+
+    // stops coder shaking after catching a bug image
+    function shakeReset() {
+      $coder.removeClass('shaking');
+    }
 
     //fades-in random div with image, animates div to make it fall
     $randomDiv.fadeIn('slow').animate({
@@ -71,9 +134,11 @@ $(() => {
           pressed = false;
           if (chosenImage === 'bug' && catchResult === null) {
             catchResult = 'bug';
-            // if id = bug, shake
-            $coder.addClass('shaking'); //not sure where to put the reset
+            $coder.addClass('shaking');
+            $score = $score - 5;
+            $scoreDisplay.text($score);
             pressed = true;
+            setTimeout(shakeReset, 1500);
           } else if (chosenImage === 'html' && catchResult === null) {
             catchResult = 'html';
             $score++;
@@ -102,7 +167,6 @@ $(() => {
       top: 0
     });
     $(this).hide();
-    $coder.removeClass('shaking'); // where to move this?
   }
 
   //start random divs falling
@@ -111,91 +175,18 @@ $(() => {
       drop();
     }, 1000);
   }
-
-  startGame();
-
-
   // drop();
 
 
+  //function for play button
+  function playGame() {
+    startGame();
+    startTime();
+  }
 
+  // event listener for play button
+  $playButton.on('click', playGame);
 
-
-  // OLD event listener for left/right arrow keys
-  // $(document).on('keyup', (e) => {
-  //   switch (e.which) {
-  //     case 37:
-  //       $coder.stop().animate({
-  //         left: '-=80'
-  //       }, () => {
-  //       }); //left arrow key
-  //       break;
-  //     case 39:
-  //       $coder.stop().animate({
-  //         left: '+=80'
-  //       }, () => {
-  //         console.log($coder.position());
-  //       }); //right arrow key
-  //       break;
-  //   }
-  // });
-
-
-
-  //event listener for when coder is moving
-  // $coder.on('change' (e) {
-  //   if ((e.target).position().left < -20) {
-  //     $coder.position.left = -20
-  //   }
-  // });
-
-
-//PSEUDO CODE
-
-// work out how to place falling divs in relation to codeWall - DONE
-//fade in falling objects - DONE
-//iterate through divs to decide which one starts falling when - DONE
-//location of div compared to top left corner of box
-//function to place image on falling div - DONE
-//function to decide whether div is "code or bug"
-
-//styling: codeWall image
-//sound effects!
-//welcome screen with instructions page and play button
-//main screen - timer, score, lives, hi score
-//play again button
 
 //THIS IS THE BOTTOM OF THE DOM CONTENT LOADER
 });
-
-
-
-
-
-
-
-
-
-
-
-// // let imgValue = null;
-// function html(e) {
-//   $(e.target).attr('src', 'images/html.png');
-//   // imgValue = 'code';
-//   $(e.target).off();
-// }
-// // function css(e) {
-// //   $(e.target).attr('src', 'images/css.png');
-// //   // imgValue = 'code';
-// //   $(e.target).off();
-// // }
-// // function javascript(e) {
-// //   $(e.target).attr('src', 'images/javascript.png');
-// //   // imgValue = 'code';
-// //   $(e.target).off();
-// // }
-// function bug() {
-//   $(target).attr('src', 'images/bug.png');
-//   // imgValue = 'bug';
-//   $(target).off();
-// }
