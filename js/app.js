@@ -7,19 +7,20 @@ $(() => {
 
     // TO DO LIST...
     //-------------------
-    // NEED RESET WHEN TIMER RUNS OUT!!!
-    // INCREASE SPEED AT A CERTAIN SCORE
+    // ****INCREASE SPEED AT A CERTAIN SCORE - drop speed is linked to timer.
+
+    // NEED RESET WHEN TIMER RUNS OUT!!! - done
     //
     // BOUNDARIES FOR CODER dude
     // DEBUG DROPPING IMAGES CHANGING HALFWAY THROUGH DROPPING
 
     //styling:
-    //ADD SOUND EFFECTS!!
-    // HI SCORE BOX
-    // hide everything and just show it when using play button??
+    // arrow keys needed in instructions
+    // explain about bugs hiding
+    // ADD SOUND EFFECTS!!
+    // HI SCORE BOX?
+    // hide everything and just show it when using play button?? e.g. timer, score box
     //main screen - timer, score, lives, hi score
-    //
-    // how to temp disable func keys when shaking?
 
     //codeWall image - DONE
     //Instruction page - DONE
@@ -35,7 +36,6 @@ $(() => {
 
   const buzz = $('#buzz');
   const pop = $('#pop');
-  const pop2 = $('#pop2');
 
   // code catcher dude
   const $coder = $('#coder');
@@ -53,13 +53,11 @@ $(() => {
       const width = $codewall.width();
       switch (e.which) {
         case 37:  //left arrow key
-          console.log($coder.position());
           $coder.stop().animate({
             left: '-=' + width //allow coder to move along whole codewall
           }, 3000);
           break;
         case 39:  //right arrow key
-          console.log($coder.position());
           $coder.stop().animate({
             left: '+=' + width //allow coder to move along whole codewall
           }, 3000);
@@ -79,21 +77,19 @@ $(() => {
 
   // timer countdown function
   function startTime() {
-    $coder.show().animate({
-      left: 450
-    });
+    $coder.show();
     $scoreBoard.text(0);
     timer = setInterval(() => {
       if (timeRemaining > 0) {
+        drop();
         timeRemaining--;
         $timer.html(timeRemaining);
       } else if (timeRemaining === 0) {
         clearInterval(timer);
         timeRemaining = 60;
         $coder.hide().animate({
-          left: -2000
+          left: 450
         });
-        console.log($coder.position());
         $startBtn.html('Play again?').show();
       }
     }, 1000);
@@ -183,18 +179,18 @@ $(() => {
   }
 
   //start random divs falling
-  function startGame() {
-    setInterval(() => {
-      drop();
-    }, 1000);
-  }
+  // function startGame() {
+  //   setInterval(() => {
+  //     drop();
+  //   }, 1000);
+  // }
   // drop();
 
 
   //function for play button
   function playGame() {
     $startBtn.hide();
-    startGame();
+    // startGame();
     startTime();
   }
   // playGame();
