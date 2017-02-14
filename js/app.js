@@ -1,34 +1,37 @@
 console.log('JS loaded!');
 $(() => {
 
+  //two lines for scroll lock
+  $('body').css('overflow','hidden');
+  $('body').attr('scroll','no');
 
     // TO DO LIST...
     //-------------------
-    // how to temp disable func keys when shaking?
-    // how to clear shake from css? run in sequence?
     // NEED RESET WHEN TIMER RUNS OUT!!!
+    // INCREASE SPEED AT A CERTAIN SCORE
+    //
     // BOUNDARIES FOR CODER dude
     // DEBUG DROPPING IMAGES CHANGING HALFWAY THROUGH DROPPING
-    // INCREASE SPEED AT A CERTAIN SCORE
-    // ADD SOUND EFFECTS!!
+
+    //styling:
+    //ADD SOUND EFFECTS!!
     // HI SCORE BOX
-    //styling: codeWall image
-    //sound effects!
-    //Instruction page (slide in)
-    // hide everything add just show when using buttons
+    // hide everything and just show it when using play button??
     //main screen - timer, score, lives, hi score
-    //play again button
     //
+    // how to temp disable func keys when shaking?
 
-    // how to change margin of codewall now??
-    // ASK CONNOR ABOUT THIS!!!
-    //lock scroll background-color
-    //.animate Scroll to element in a function
+    //codeWall image - DONE
+    //Instruction page - DONE
+    //play again button - DONE
+    // ask Connor how to lock scroll bars - DONE.
+    // how to clear shake from css? - DONE
+    // how to change margin of codewall - DONE. (padding of container)
 
-
-  const $playButton = $('#play');
 
   const $codewall = $('.codewall');
+
+  const $startBtn = $('#startBtn');
 
   // code catcher dude
   const $coder = $('#coder');
@@ -46,13 +49,13 @@ $(() => {
       const width = $codewall.width();
       switch (e.which) {
         case 37:  //left arrow key
-          // console.log($coder.position());
+          console.log($coder.position());
           $coder.stop().animate({
             left: '-=' + width //allow coder to move along whole codewall
           }, 3000);
           break;
         case 39:  //right arrow key
-          // console.log($coder.position());
+          console.log($coder.position());
           $coder.stop().animate({
             left: '+=' + width //allow coder to move along whole codewall
           }, 3000);
@@ -67,38 +70,43 @@ $(() => {
 
   const $timer = $('.timer');
 
-  let timeRemaining = 60;
+  let timeRemaining = 10;
   let timer = null;
 
   // timer countdown function
   function startTime() {
-    $scoreDisplay.text(0);
+    $coder.show().animate({
+      left: 450
+    });
+    $scoreBoard.text(0);
     timer = setInterval(() => {
       if (timeRemaining > 0) {
         timeRemaining--;
         $timer.html(timeRemaining);
       } else if (timeRemaining === 0) {
         clearInterval(timer);
-        timeRemaining = 60;
+        timeRemaining = 10;
+        $coder.hide().animate({
+          left: -2000
+        });
+        console.log($coder.position());
+        $startBtn.html('Play again?').show();
       }
     }, 1000);
   }
 
   // variable for the score
-  // let $hiScore = 0;
   let $score = 0;
-  const $scoreDisplay = $('.score');
-  // const $highScoreDisplay = $('.hiscore');
-  //
-  // if ($hiScore < $score) {
-  //   $hiScore = $score;
-  //   alert($hiScore);
-  //   $highScoreDisplay.push($hiScore);
-  // }
+  // variable for scoreboard
+  const $scoreBoard = $('.score');
 
+
+  // stops coder shaking after catching a bug image
+  function shakeReset() {
+    $coder.removeClass('shaking');
+  }
 
   function drop(){
-
     //array to assign image to falling div
     const images = [ 'html', 'html', 'html', 'html', 'html', 'html', 'html', 'html', 'css', 'css', 'css', 'css', 'bug', 'bug', 'bug', 'bug', 'javascript', 'javascript'];
 
@@ -115,10 +123,6 @@ $(() => {
     // variable to store value of last falling image caught by coder
     let catchResult = null;
 
-    // stops coder shaking after catching a bug image
-    function shakeReset() {
-      $coder.removeClass('shaking');
-    }
 
     //fades-in random div with image, animates div to make it fall
     $randomDiv.fadeIn('slow').animate({
@@ -128,37 +132,38 @@ $(() => {
       easing: 'linear',
       complete: reset,
       progress: function() {
-        // && ($(this).position().top < 500)
         if (($(this).position().top >= 460) && ($coder.position().left < ($(this).position().left + 20)) && ($coder.position().left > ($(this).position().left) - 20)) {
           $coder.stop();
           pressed = false;
+          // if coder catches bug, -5 points, shake coder
           if (chosenImage === 'bug' && catchResult === null) {
             catchResult = 'bug';
             $coder.addClass('shaking');
             $score = $score - 5;
-            $scoreDisplay.text($score);
+            $scoreBoard.text($score);
             pressed = true;
-            setTimeout(shakeReset, 1500);
+            setTimeout(shakeReset, 800);
+          // if coder catches html, +1 point
           } else if (chosenImage === 'html' && catchResult === null) {
             catchResult = 'html';
             $score++;
-            $scoreDisplay.text($score);
-            console.log($score);
+            $scoreBoard.text($score);
+          // if coder catches css, +3 points
           } else if (chosenImage === 'css' && catchResult === null) {
             catchResult = 'css';
             $score = $score + 3;
-            $scoreDisplay.text($score);
-            console.log($score);
+            $scoreBoard.text($score);
+          // if coder catches javascript, +5 points
           } else if (chosenImage === 'javascript' && catchResult === null) {
             catchResult = 'javascript';
             $score = $score + 5;
-            $scoreDisplay.text($score);
-            console.log($score);
+            $scoreBoard.text($score);
           }
         }
       }
     });
   }
+
 
 
   //reset the falling div to the top and hide it again
@@ -180,12 +185,13 @@ $(() => {
 
   //function for play button
   function playGame() {
+    $startBtn.hide();
     startGame();
     startTime();
   }
+  // playGame();
 
-  // event listener for play button
-  $playButton.on('click', playGame);
+  $startBtn.on('click', playGame);
 
 
 //THIS IS THE BOTTOM OF THE DOM CONTENT LOADER

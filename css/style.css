@@ -2,6 +2,7 @@ body {
   background-color: #405f82;
   text-align: center;
   font-size: 34px;
+  font-family: Orbitron, sans-serif;
 
 }
 
@@ -11,7 +12,6 @@ h1 {
   margin-left: 70px;
   font-size: 130px;
   color: white;
-  font-family: Orbitron, sans-serif;
   text-shadow: 4px 4px #000;
 }
 
@@ -21,17 +21,18 @@ h1 {
 }
 
 .container1 {
-  height: 1500px;
+  height: 2000px;
 }
 
 button {
+  font-family: Orbitron, sans-serif;
   background-color: #dcdcdc;
   border: 3px solid #dcdcdc;
   border-radius: 5px;
   font-size: 28px;
-  width: 270px;
+  width: 280px;
   height: 70px;
-  margin: 70px 50px 0px;
+  margin: 70px 50px 200px;
   padding: 15px;
 }
 
@@ -40,16 +41,66 @@ a {
   color: inherit;
 }
 
+.instructions {
+  background-color: lightgrey;
+  border: 2px solid black;
+  width: 1000px;
+  margin: 0 auto;
+  margin-bottom: -40px;
+  margin-top: 30px;
+}
+
+h2 {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+.instructions img {
+  height: 100px;
+  width: 100px;
+}
+
+
+p {
+  font-size: 24px;
+  font-family: Arial, sans-serif;
+}
+
+p img {
+  height: 80px;
+  width: 80px;
+}
+
 .container2 {
   position: relative;
   background-image: url('../images/codewall.jpg');
   background-position: center;
   background-size: cover;
   height: 900px;
-  width: 100%;
-  margin: 0 auto;
+  width: 1440px;
+  margin-left: -8px;;
+  padding-top: 150px;
 }
 
+button#startBtn {
+  margin-top: 240px;
+  background-color: rgba(0,0,0,0);
+  color: black;
+  font-size:40px;
+  font-weight: 400;
+  height: 70px;
+  width: auto;
+  padding: 5px 60px 0px;
+  border: 3px solid black;
+  text-shadow: 2px 2px white;
+}
+
+button#startBtn:hover {
+  color: white;
+  border: 2px solid black;
+  background-color: #3677CF;
+  text-shadow: 2px 2px black;
+}
 
 .bug {
   width: 50px;
@@ -67,6 +118,7 @@ img. css {
   height: 100px;
   background-color: lightblue;
   border: solid 5px white;
+  /*margin-top: 100px;*/
 }
 
 .score-board {
@@ -94,11 +146,11 @@ span {
 }
 
 
-.codewall {
+div.codewall {
   width: 1000px;
   height: 600px;
   background-color: rgba(255,255,255,0.8);
-  margin-top: 100px;
+  /*margin-top: 100px;*/
   margin: 0 auto;
   position: relative;
   border-radius: 10px;
