@@ -33,6 +33,10 @@ $(() => {
 
   const $startBtn = $('#startBtn');
 
+  const buzz = $('#buzz');
+  const pop = $('#pop');
+  const pop2 = $('#pop2');
+
   // code catcher dude
   const $coder = $('#coder');
 
@@ -70,7 +74,7 @@ $(() => {
 
   const $timer = $('.timer');
 
-  let timeRemaining = 10;
+  let timeRemaining = 60;
   let timer = null;
 
   // timer countdown function
@@ -85,7 +89,7 @@ $(() => {
         $timer.html(timeRemaining);
       } else if (timeRemaining === 0) {
         clearInterval(timer);
-        timeRemaining = 10;
+        timeRemaining = 60;
         $coder.hide().animate({
           left: -2000
         });
@@ -137,24 +141,28 @@ $(() => {
           pressed = false;
           // if coder catches bug, -5 points, shake coder
           if (chosenImage === 'bug' && catchResult === null) {
+            buzz[0].play();
             catchResult = 'bug';
             $coder.addClass('shaking');
             $score = $score - 5;
             $scoreBoard.text($score);
             pressed = true;
-            setTimeout(shakeReset, 800);
+            setTimeout(shakeReset, 500);
           // if coder catches html, +1 point
           } else if (chosenImage === 'html' && catchResult === null) {
+            pop[0].play();
             catchResult = 'html';
             $score++;
             $scoreBoard.text($score);
           // if coder catches css, +3 points
           } else if (chosenImage === 'css' && catchResult === null) {
+            pop[0].play();
             catchResult = 'css';
             $score = $score + 3;
             $scoreBoard.text($score);
           // if coder catches javascript, +5 points
           } else if (chosenImage === 'javascript' && catchResult === null) {
+            pop[0].play();
             catchResult = 'javascript';
             $score = $score + 5;
             $scoreBoard.text($score);
@@ -191,6 +199,7 @@ $(() => {
   }
   // playGame();
 
+  //event listener for start button
   $startBtn.on('click', playGame);
 
 
