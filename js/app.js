@@ -7,21 +7,24 @@ $(() => {
 
     // TO DO LIST...
     //-------------------
-    // ****INCREASE SPEED AT A CERTAIN SCORE - drop speed is linked to timer.
+    // ****INCREASE SPEED AT A CERTAIN SCORE - drop speed is linked to timer. - DONE... BUT TEST THE SPEED?
 
-    // NEED RESET WHEN TIMER RUNS OUT!!! - done
-    //
     // BOUNDARIES FOR CODER dude
     // DEBUG DROPPING IMAGES CHANGING HALFWAY THROUGH DROPPING
 
+    //increase scores
+
     //styling:
+    // animate page down (so hide instructions)
     // arrow keys needed in instructions
     // explain about bugs hiding
     // ADD SOUND EFFECTS!!
     // HI SCORE BOX?
-    // hide everything and just show it when using play button?? e.g. timer, score box
+    // hide everything and just show it when using start button?? e.g. timer, score box
     //main screen - timer, score, lives, hi score
 
+    // NEED RESET WHEN TIMER RUNS OUT!!! - done
+    // hide already falling images when timer runs out - and reset them! - unnecessary when speed increases!!
     //codeWall image - DONE
     //Instruction page - DONE
     //play again button - DONE
@@ -46,6 +49,7 @@ $(() => {
   //hide falling divs before game starts
   $fallingDivs.hide();
 
+
   //event listener for arrrow keys to move coder
   var pressed = false;
   $(document).on('keydown', (e) => {
@@ -55,12 +59,12 @@ $(() => {
         case 37:  //left arrow key
           $coder.stop().animate({
             left: '-=' + width //allow coder to move along whole codewall
-          }, 3000);
+          }, 1500);
           break;
         case 39:  //right arrow key
           $coder.stop().animate({
             left: '+=' + width //allow coder to move along whole codewall
-          }, 3000);
+          }, 1500);
           break;
       }
     }
@@ -75,6 +79,9 @@ $(() => {
   let timeRemaining = 60;
   let timer = null;
 
+  //variable for the speed of falling items (in millisecs)
+  let dropSpeed = 3000;
+
   // timer countdown function
   function startTime() {
     $coder.show();
@@ -83,12 +90,15 @@ $(() => {
       if (timeRemaining > 0) {
         drop();
         timeRemaining--;
+        dropSpeed = dropSpeed - 50;
         $timer.html(timeRemaining);
       } else if (timeRemaining === 0) {
         clearInterval(timer);
         timeRemaining = 60;
+        dropSpeed = 3000;
+        $score = 0;
         $coder.hide().animate({
-          left: 450
+          left: 400
         });
         $startBtn.html('Play again?').show();
       }
@@ -108,7 +118,7 @@ $(() => {
 
   function drop(){
     //array to assign image to falling div
-    const images = [ 'html', 'html', 'html', 'html', 'html', 'html', 'html', 'html', 'css', 'css', 'css', 'css', 'bug', 'bug', 'bug', 'bug', 'javascript', 'javascript'];
+    const images = [ 'html', 'html', 'html', 'html', 'html', 'html', 'css', 'css', 'css', 'css', 'bug', 'bug', 'bug', 'bug', 'bug', 'javascript', 'javascript', 'javascript'];
 
     //generates random index of $fallingDivs and $fallingImages arrays
     const $randomDiv = $fallingDivs.eq(Math.floor(Math.random()*$fallingDivs.length));
@@ -119,7 +129,6 @@ $(() => {
       .find('img')
       .attr('src', `images/${chosenImage}.png`)
       .attr('class', chosenImage);
-
     // variable to store value of last falling image caught by coder
     let catchResult = null;
 
@@ -128,7 +137,7 @@ $(() => {
     $randomDiv.fadeIn('slow').animate({
       top: 500
     }, {
-      duration: 3000,
+      duration: dropSpeed,
       easing: 'linear',
       complete: reset,
       progress: function() {
