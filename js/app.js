@@ -2,36 +2,50 @@ console.log('JS loaded!');
 $(() => {
 
   //two lines for scroll lock
-  $('body').css('overflow','hidden');
-  $('body').attr('scroll','no');
+  // $('body').css('overflow','hidden');
+  // $('body').attr('scroll','no');
 
     // TO DO LIST...
     //-------------------
+
     // maybe increase falling speed a little
     //check for how many objects falling at same time - maybe incease
+
     //more bugs appearing?!
+    // warn about hidden bugs in falling code
+      // timer flash at 5 secs
+      // increase coder speed with dropspeed??
 
+      // gif background?
 
-    // BOUNDARIES FOR CODER dude - kind of done.
+      //fix the time error!!!
 
-    //increase scores
+      //clean up code
 
     //styling:
-    // animate page down (so hide instructions)
-    // explain about bugs hiding
+    // animate page down (so hide instructions) - DONE
+    // audio remove numbers on play
     // ADD SOUND EFFECTS!!
     // HI SCORE BOX?
+
+    //instructions page - resize images
+    //welcome page - change buttons
+
     // hide everything and just show it when using start button?? e.g. timer, score box
-    //main screen - timer, score, lives, hi score
 
 
+  const $instructionBtn = $('.instruct');
+  const $instructionPage = $('.instructions');
 
-  const $codewall = $('.codewall');
+  const $playBtn = $('.play');
+  const $playBtn2 = $('#play2');
 
   const $startBtn = $('#startBtn');
 
   const buzz = $('#buzz');
   const pop = $('#pop');
+
+  const $codewall = $('.codewall');
 
   // code catcher dude
   const $coder = $('#coder');
@@ -51,6 +65,8 @@ $(() => {
   //hide falling divs before game starts
   $fallingDivs.hide();
   $timer.hide();
+  $instructionPage.hide();
+  $playBtn2.hide();
   // $scoreBoard.hide();
 
   //event listener for arrrow keys to move coder
@@ -204,9 +220,24 @@ $(() => {
     startTime();
   }
 
+  function jumpToGame() {
+    $('html, body').animate({ scrollTop: $(document).height() }, 2000);
+  }
+
+  function showInstructions() {
+    $('html, body').animate({ scrollTop: $(document).height() - 1810 }, 2000);
+    $instructionPage.show();
+    $playBtn2.show();
+  }
+
   //event listener for start button
   $startBtn.on('click', startGame);
 
+  $playBtn.on('click', jumpToGame);
+  $instructionBtn.on('click', showInstructions);
+
+
+  console.log($(document).height());
 
 //THIS IS THE BOTTOM OF THE DOM CONTENT LOADER
 });
@@ -215,6 +246,7 @@ $(() => {
 
 
 //DONE LIST
+// BOUNDARIES FOR CODER dude - kind of done
 // arrow keys needed in instructions - DONE
 // DEBUG DROPPING IMAGES CHANGING HALFWAY THROUGH DROPPING - SEEMS TO BE DONE!! :-)
 // NEED RESET WHEN TIMER RUNS OUT!!! - done

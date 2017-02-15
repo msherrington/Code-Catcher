@@ -3,6 +3,7 @@ body {
   text-align: center;
   font-size: 34px;
   font-family: Orbitron, sans-serif;
+  margin: 0;
 }
 
 h1 {
@@ -20,7 +21,7 @@ h1 {
 }
 
 .container1 {
-  height: 2000px;
+  height: 1700px;
 }
 
 button {
@@ -77,11 +78,12 @@ p .codeImg {
 
 .container2 {
   position: relative;
+  font-family: Orbitron, sans-serif;
   background-image: url('../images/codewall.jpg');
   background-position: center;
   background-size: cover;
-  height: 900px;
-  width: 1440px;
+  height: 750px;
+  width: 1450px;
   margin-left: -8px;;
   padding-top: 150px;
 }
@@ -108,36 +110,48 @@ button#startBtn:hover {
 }
 
 .timer {
+  align-items: center;
   float: left;
-  width: 150px;
+  font-family: Orbitron, sans-serif;
+  width: 200px;
   height: 100px;
-  background-color: lightblue;
+  background-color: rgba(230,0,0,0.2);
+  color: white;
+  /*background-color: lightblue;*/
   border: solid 5px white;
   border-radius: 10px;
+  font-size: 60px;
+  padding-top: 50px;
+  margin-left: 30px;
 }
 
 .score-board {
+  align-items: center;
+  font-family: Orbitron, sans-serif;
+  color: white;
   float: right;
-  width: 150px;
+  width: 220px;
   height: 100px;
-  background-color: yellow;
+  background-color: rgba(0,0,0,0.4);
   border: solid 5px white;
   border-radius: 10px;
-  margin-bottom: 200px;
+  /*margin-bottom: 200px;*/
   margin-top: 0px;
-  padding-top: 25px;
+  margin-right: 20px;
+  padding-top: 30px;
+  padding-bottom: 15px;
+  font-size: 48px;
 }
 
 /*div .final-score {
-  /*position: absolute;*/
-  /*left: 400px
-  top: 400px;*/
+  position: absolute;
+  left: 400px
+  top: 400px;
   margin: 0 auto;
   background-color: red;
   height: 100px;
-  width: 150px;*/
-
-}
+  width: 150px;
+}*/
 
 /*.hi-score-board {
   float: right;
@@ -152,6 +166,7 @@ button#startBtn:hover {
 span {
   font-size: 48px;
 }
+
 
 div.codewall {
   width: 900px;
