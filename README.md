@@ -71,13 +71,13 @@ Going forward, I would like to make the following improvements to the game...
 
 ######Functionality
 * CSS responsiveness - allow the game to work on other screen sizes.
-* Decrease the 1 second gap between each code/bug falling. Towards the end of the game the speed of their drop increases, but not the number of divs falling.
 * Increase the speed of the coder's movements as the divs fall faster, allowing for more skilled gameplay at faster speeds.
+* Time bonuses for score 'checkpoints'.
+* Decrease the 1 second gap between each code/bug falling as the game speeds up - will need to separate it from the timer.
 * Set defined boundaries for the coder's movements.
 
 ######Styling
 * When the game ends, move the final score to just above the 'Play Again' button.
-* Add music to the welcome screen, and to the game during play.
 * Include a High Score box to provide a competitive edge for multiple players.
 * Make the timer background flash red for the last 5 seconds of the game.
 * Change the sound effects, using a different sound for each type of code caught.

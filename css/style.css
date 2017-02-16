@@ -84,7 +84,7 @@ p .codeImg {
   background-position: center;
   background-size: cover;
   height: 750px;
-  width: 1450px;
+  width: 100%;
   margin-left: -8px;;
   padding-top: 150px;
 }

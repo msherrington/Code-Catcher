@@ -40,6 +40,7 @@ $(() => {
   const $scoreBoard = $('.score-board');
   let $score = 0;
 
+  //set music volume and play background music
   $backgroundMusic.prop('volume', 0.1);
   $backgroundMusic[0].play();
 
@@ -230,7 +231,6 @@ $(() => {
 
   //function for start button
   function startGame() {
-    // toggleBackgroundMusic();
     $backgroundMusic[0].pause();
     $gameMusic.prop('volume', 0.1);
     $gameMusic[0].play();
