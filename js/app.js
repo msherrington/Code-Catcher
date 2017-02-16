@@ -5,22 +5,16 @@ $(() => {
   $('body').css('overflow','hidden');
   $('body').attr('scroll','no');
 
-    // TO DO LIST...
-    //-------------------
-
-    // maybe increase falling speed a little
-    //check for how many objects falling at same time - maybe incease
-
-    //more bugs appearing?!
-      // increase coder speed with dropspeed??
-      //clean up code
+    // TO DO...
+    //------------------
+    //increase div drops as divs start falling faster 
+    //increase coder speed with dropspeed??
 
     //styling:
-    // timer flash at 5 secs
-    // audio remove numbers on play
     // add sound track
+    // timer flash at 5 secs
+    // move score box when game ends
     // HI SCORE BOX?
-    //welcome page - change buttons (hover)
 
 
 
@@ -32,9 +26,11 @@ $(() => {
 
   const $startBtn = $('#startBtn');
 
+  //vars for sounds
   const buzz = $('#buzz');
   const pop = $('#pop');
 
+  //var for gameplay area
   const $codewall = $('.codewall');
 
   // code catcher dude
@@ -51,6 +47,7 @@ $(() => {
   // variables for scoreboard
   const $scoreDisplay = $('.score-display');
   const $scoreBoard = $('.score-board');
+  let $score = 0;
 
   //hide falling divs before game starts
   $fallingDivs.hide();
@@ -107,9 +104,6 @@ $(() => {
         timeRemaining--;
         dropSpeed = dropSpeed - 45;
         $timer.html(timeRemaining);
-        // if ($timer === 5) {
-        //   $timer.attr('background-color', 'red');
-        // }
       } else if (timeRemaining === 0) {
         clearInterval(timer);
         timeRemaining = 60;
@@ -125,38 +119,39 @@ $(() => {
     }, 1000);
   }
 
-  // variable for the score
-  let $score = 0;
-
   // stops coder shaking after catching a bug image
   function shakeReset() {
     $coder.removeClass('shaking');
   }
 
   function imageDrop(){
-
     //array to assign image to falling div
     const images = [ 'html', 'html', 'html', 'html', 'html', 'html', 'css', 'css', 'css', 'css', 'bug', 'bug', 'bug', 'bug', 'bug', 'javascript', 'javascript', 'javascript'];
 
-    //generates random index of $fallingDivs and $fallingImages arrays
-    const $randomDiv = $fallingDivs.eq(Math.floor(Math.random()*$fallingDivs.length));
-    const chosenImage = images[Math.floor(Math.random() * images.length)];
+    //chooses random div to animate (falling)
+    let $randomDiv = $fallingDivs.eq(Math.floor(Math.random()*$fallingDivs.length));
 
-    // checks that randomDiv is not already falling
-    if ($randomDiv.is(':animated') === false) {
-      //assigns random img to falling div and changes class
-      $randomDiv
-        .find('img')
-        .attr('src', `images/${chosenImage}.png`)
-        .attr('class', chosenImage);
+    // if randomDiv is already animated, choose another
+    while($randomDiv.is(':animated')) {
+      $randomDiv = $fallingDivs.eq(Math.floor(Math.random()*$fallingDivs.length));
     }
 
-    // variable to store value of last falling image caught by coder
+    //chooses random image and class to assign to falling div
+    const chosenImage = images[Math.floor(Math.random() * images.length)];
+
+    //assigns random img to falling div and changes class
+    $randomDiv
+      .find('img')
+      .attr('src', `images/${chosenImage}.png`)
+      .attr('class', chosenImage);
+    // }
+
+    // variable to store value of previous falling image caught by coder
     let catchResult = null;
 
     //fades-in random div with image, animates div to make it fall
     $randomDiv.fadeIn().animate({
-      top: 510
+      top: 500
     }, {
       duration: dropSpeed,
       easing: 'linear',
@@ -198,7 +193,6 @@ $(() => {
     });
   }
 
-
   //reset the falling div to the top and hide it again
   function reset() {
     $(this).css({
@@ -223,14 +217,11 @@ $(() => {
     $playBtn2.show();
   }
 
-  //event listener for start button
-  $startBtn.on('click', startGame);
-
+  //event listeners for welcome screen buttons
   $playBtn.on('click', jumpToGame);
   $instructionBtn.on('click', showInstructions);
-
-
-  console.log($(document).height());
+  //event listener for start button
+  $startBtn.on('click', startGame);
 
 //THIS IS THE BOTTOM OF THE DOM CONTENT LOADER
 });
@@ -240,6 +231,7 @@ $(() => {
 
 //DONE LIST
 
+//welcome page - change buttons (hover) - DONE
 //instructions page - resize images - DONE
 // AND warn about hidden bugs in falling code - DONE
 // BOUNDARIES FOR CODER dude - kind of done
