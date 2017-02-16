@@ -2,8 +2,8 @@ console.log('JS loaded!');
 $(() => {
 
   //two lines for scroll lock
-  // $('body').css('overflow','hidden');
-  // $('body').attr('scroll','no');
+  $('body').css('overflow','hidden');
+  $('body').attr('scroll','no');
 
     // TO DO LIST...
     //-------------------
@@ -12,26 +12,16 @@ $(() => {
     //check for how many objects falling at same time - maybe incease
 
     //more bugs appearing?!
-    // warn about hidden bugs in falling code
-      // timer flash at 5 secs
       // increase coder speed with dropspeed??
-
-      // gif background?
-
-      //fix the time error!!!
-
       //clean up code
 
     //styling:
-    // animate page down (so hide instructions) - DONE
+    // timer flash at 5 secs
     // audio remove numbers on play
-    // ADD SOUND EFFECTS!!
+    // add sound track
     // HI SCORE BOX?
+    //welcome page - change buttons (hover)
 
-    //instructions page - resize images
-    //welcome page - change buttons
-
-    // hide everything and just show it when using start button?? e.g. timer, score box
 
 
   const $instructionBtn = $('.instruct');
@@ -60,14 +50,14 @@ $(() => {
 
   // variables for scoreboard
   const $scoreDisplay = $('.score-display');
-  // const $scoreBoard = $('.score-board');
+  const $scoreBoard = $('.score-board');
 
   //hide falling divs before game starts
   $fallingDivs.hide();
   $timer.hide();
   $instructionPage.hide();
   $playBtn2.hide();
-  // $scoreBoard.hide();
+  $scoreBoard.hide();
 
   //event listener for arrrow keys to move coder
   var pressed = false;
@@ -109,7 +99,7 @@ $(() => {
   function startTime() {
     $timer.show();
     $coder.show();
-    // $scoreBoard.show();
+    $scoreBoard.show();
     $scoreDisplay.text(0);
     timer = setInterval(() => {
       if (timeRemaining > 0) {
@@ -117,6 +107,9 @@ $(() => {
         timeRemaining--;
         dropSpeed = dropSpeed - 45;
         $timer.html(timeRemaining);
+        // if ($timer === 5) {
+        //   $timer.attr('background-color', 'red');
+        // }
       } else if (timeRemaining === 0) {
         clearInterval(timer);
         timeRemaining = 60;
@@ -246,10 +239,15 @@ $(() => {
 
 
 //DONE LIST
+
+//instructions page - resize images - DONE
+// AND warn about hidden bugs in falling code - DONE
 // BOUNDARIES FOR CODER dude - kind of done
 // arrow keys needed in instructions - DONE
-// DEBUG DROPPING IMAGES CHANGING HALFWAY THROUGH DROPPING - SEEMS TO BE DONE!! :-)
+// DEBUG DROPPING IMAGES CHANGING HALFWAY THROUGH DROPPING - SEEMS TO BE DONE!!
+// hide everything and just show it when using start button?? e.g. timer, score box - DONE
 // NEED RESET WHEN TIMER RUNS OUT!!! - done
+// animate page down (so hide instructions) - DONE
 // hide already falling images when timer runs out - and reset them! - unnecessary when speed increases!!
 //codeWall image - DONE
 //Instruction page - DONE
