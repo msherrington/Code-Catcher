@@ -16,8 +16,10 @@ $(() => {
   const $startBtn = $('#startBtn');
 
   //vars for sounds
-  const buzz = $('#buzz');
-  const pop = $('#pop');
+  const $buzz = $('#buzz');
+  const $pop = $('#pop');
+  const $backgroundMusic = $('#background-music');
+  const $gameMusic = $('#game-track');
 
   //var for gameplay area
   const $codewall = $('.codewall');
@@ -37,6 +39,9 @@ $(() => {
   const $scoreDisplay = $('.score-display');
   const $scoreBoard = $('.score-board');
   let $score = 0;
+
+  $backgroundMusic.prop('volume', 0.1);
+  $backgroundMusic[0].play();
 
   //hide falling divs before game starts
   $fallingDivs.hide();
@@ -163,7 +168,7 @@ $(() => {
           pressed = false;
           // if coder catches bug, -5 points, shake coder
           if (chosenImage === 'bug' && catchResult === null) {
-            buzz[0].play();
+            $buzz[0].play();
             catchResult = 'bug';
             $coder.addClass('shaking');
             $score = $score - 500;
@@ -172,19 +177,19 @@ $(() => {
             setTimeout(shakeReset, 500);
           // if coder catches html, +1 point
           } else if (chosenImage === 'html' && catchResult === null) {
-            pop[0].play();
+            $pop[0].play();
             catchResult = 'html';
             $score = $score + 100;
             $scoreDisplay.text($score);
           // if coder catches css, +3 points
           } else if (chosenImage === 'css' && catchResult === null) {
-            pop[0].play();
+            $pop[0].play();
             catchResult = 'css';
             $score = $score + 200;
             $scoreDisplay.text($score);
           // if coder catches javascript, +5 points
           } else if (chosenImage === 'javascript' && catchResult === null) {
-            pop[0].play();
+            $pop[0].play();
             catchResult = 'javascript';
             $score = $score + 300;
             $scoreDisplay.text($score);
@@ -225,6 +230,10 @@ $(() => {
 
   //function for start button
   function startGame() {
+    // toggleBackgroundMusic();
+    $backgroundMusic[0].pause();
+    $gameMusic.prop('volume', 0.1);
+    $gameMusic[0].play();
     $startBtn.hide();
     startTime();
   }
