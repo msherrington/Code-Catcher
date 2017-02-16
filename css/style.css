@@ -72,10 +72,6 @@ p .codeImg {
   width: 65px;
 }
 
-.red {
-  color: #E31B40;
-}
-
 #arrows {
   height: 50px;
   margin-bottom: -10px;
@@ -163,26 +159,6 @@ button#startBtn:hover {
   font-size: 48px;
 }
 
-/*div .final-score {
-  position: absolute;
-  left: 400px
-  top: 400px;
-  margin: 0 auto;
-  background-color: red;
-  height: 100px;
-  width: 150px;
-}*/
-
-/*.hi-score-board {
-  float: right;
-  margin-top: 0px;
-  width: 200px;
-  height: 100px;
-  background-color: yellow;
-  border: solid 5px white;
-  margin-bottom: 200px;
-}*/
-
 span {
   font-size: 48px;
 }
@@ -198,7 +174,6 @@ div.codewall {
 }
 
 #coder {
-  /*background-color: red;*/
   position: absolute;
   bottom: -300px;
   height: 150px;

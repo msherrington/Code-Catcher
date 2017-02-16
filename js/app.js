@@ -1,29 +1,18 @@
-console.log('JS loaded!');
 $(() => {
 
   //two lines for scroll lock
   $('body').css('overflow','hidden');
   $('body').attr('scroll','no');
 
-    // TO DO...
-    //------------------
-    //increase div drops as divs start falling faster 
-    //increase coder speed with dropspeed??
-
-    //styling:
-    // add sound track
-    // timer flash at 5 secs
-    // move score box when game ends
-    // HI SCORE BOX?
-
-
-
+  //vars for page jump buttons
   const $instructionBtn = $('.instruct');
-  const $instructionPage = $('.instructions');
-
   const $playBtn = $('.play');
   const $playBtn2 = $('#play2');
 
+  //var for instructions page
+  const $instructionPage = $('.instructions');
+
+  //var for button to start game play
   const $startBtn = $('#startBtn');
 
   //vars for sounds
@@ -51,13 +40,17 @@ $(() => {
 
   //hide falling divs before game starts
   $fallingDivs.hide();
-  $timer.hide();
+  //hide instructionPage before game starts
   $instructionPage.hide();
+  // hide instructionPage play button before game starts
   $playBtn2.hide();
+  //hide timer before game starts
+  $timer.hide();
+  //hide scoreBoard before game starts
   $scoreBoard.hide();
 
   //event listener for arrrow keys to move coder
-  var pressed = false;
+  let pressed = false;
   $(document).on('keydown', (e) => {
     if(!pressed){ //start the coder moving (once only)
       const width = $codewall.width();
@@ -92,12 +85,18 @@ $(() => {
   //variable for the speed of falling items (in millisecs)
   let dropSpeed = 3000;
 
-  // timer countdown function
-  function startTime() {
+  // show hidden elements, reset score+timer at start of game play
+  function startGamePlay() {
     $timer.show();
     $coder.show();
     $scoreBoard.show();
     $scoreDisplay.text(0);
+    $timer.text(60);
+  }
+
+  // timer countdown function
+  function startTime() {
+    startGamePlay();
     timer = setInterval(() => {
       if (timeRemaining > 0) {
         imageDrop();
@@ -105,18 +104,22 @@ $(() => {
         dropSpeed = dropSpeed - 45;
         $timer.html(timeRemaining);
       } else if (timeRemaining === 0) {
-        clearInterval(timer);
-        timeRemaining = 60;
-        dropSpeed = 3000;
-        $score = 0;
-        $coder.hide().animate({
-          left: 400
-        });
-        $startBtn.html('Play again?').show();
-        $timer.hide();
-        // $scoreBoard.hide();
+        resetGamePlay();
       }
     }, 1000);
+  }
+
+  //clear timer and hide game elements at end of game
+  function resetGamePlay() {
+    clearInterval(timer);
+    timeRemaining = 60;
+    dropSpeed = 3000;
+    $score = 0;
+    $coder.hide().animate({
+      left: 400
+    });
+    $startBtn.html('Play again?').show();
+    $timer.hide();
   }
 
   // stops coder shaking after catching a bug image
@@ -124,13 +127,13 @@ $(() => {
     $coder.removeClass('shaking');
   }
 
-  function imageDrop(){
-    //array to assign image to falling div
-    const images = [ 'html', 'html', 'html', 'html', 'html', 'html', 'css', 'css', 'css', 'css', 'bug', 'bug', 'bug', 'bug', 'bug', 'javascript', 'javascript', 'javascript'];
+  //array to assign image to falling div
+  const images = [ 'html', 'html', 'html', 'html', 'html', 'html', 'css', 'css', 'css', 'css', 'bug', 'bug', 'bug', 'bug', 'bug', 'javascript', 'javascript', 'javascript'];
 
+
+  function imageDrop(){
     //chooses random div to animate (falling)
     let $randomDiv = $fallingDivs.eq(Math.floor(Math.random()*$fallingDivs.length));
-
     // if randomDiv is already animated, choose another
     while($randomDiv.is(':animated')) {
       $randomDiv = $fallingDivs.eq(Math.floor(Math.random()*$fallingDivs.length));
@@ -138,13 +141,11 @@ $(() => {
 
     //chooses random image and class to assign to falling div
     const chosenImage = images[Math.floor(Math.random() * images.length)];
-
     //assigns random img to falling div and changes class
     $randomDiv
       .find('img')
       .attr('src', `images/${chosenImage}.png`)
       .attr('class', chosenImage);
-    // }
 
     // variable to store value of previous falling image caught by coder
     let catchResult = null;
@@ -155,7 +156,7 @@ $(() => {
     }, {
       duration: dropSpeed,
       easing: 'linear',
-      complete: reset,
+      complete: resetDiv,
       progress: function() {
         if (($(this).position().top >= 460) && ($coder.position().left < ($(this).position().left + 20)) && ($coder.position().left > ($(this).position().left) - 20)) {
           $coder.stop(); // stops coder after a catch, to stop him flying off the screen
@@ -194,56 +195,39 @@ $(() => {
   }
 
   //reset the falling div to the top and hide it again
-  function reset() {
+  function resetDiv() {
     $(this).css({
       top: 0
     });
     $(this).hide();
   }
 
+  //event listener for play button
+  $playBtn.on('click', jumpToGame);
+
   //function for play button
+  function jumpToGame() {
+    $('html, body').animate({ scrollTop: $(document).height() }, 2000);
+  }
+
+  //event listener for instructions button
+  $instructionBtn.on('click', showInstructions);
+
+  //function for instructions button
+  function showInstructions() {
+    $('html, body').animate({ scrollTop: $(document).height() - 1830 }, 2000);
+    $instructionPage.show();
+    $playBtn2.show();
+  }
+
+  //event listener for start button
+  $startBtn.on('click', startGame);
+
+  //function for start button
   function startGame() {
     $startBtn.hide();
     startTime();
   }
 
-  function jumpToGame() {
-    $('html, body').animate({ scrollTop: $(document).height() }, 2000);
-  }
-
-  function showInstructions() {
-    $('html, body').animate({ scrollTop: $(document).height() - 1810 }, 2000);
-    $instructionPage.show();
-    $playBtn2.show();
-  }
-
-  //event listeners for welcome screen buttons
-  $playBtn.on('click', jumpToGame);
-  $instructionBtn.on('click', showInstructions);
-  //event listener for start button
-  $startBtn.on('click', startGame);
-
 //THIS IS THE BOTTOM OF THE DOM CONTENT LOADER
 });
-
-
-
-
-//DONE LIST
-
-//welcome page - change buttons (hover) - DONE
-//instructions page - resize images - DONE
-// AND warn about hidden bugs in falling code - DONE
-// BOUNDARIES FOR CODER dude - kind of done
-// arrow keys needed in instructions - DONE
-// DEBUG DROPPING IMAGES CHANGING HALFWAY THROUGH DROPPING - SEEMS TO BE DONE!!
-// hide everything and just show it when using start button?? e.g. timer, score box - DONE
-// NEED RESET WHEN TIMER RUNS OUT!!! - done
-// animate page down (so hide instructions) - DONE
-// hide already falling images when timer runs out - and reset them! - unnecessary when speed increases!!
-//codeWall image - DONE
-//Instruction page - DONE
-//play again button - DONE
-// ask Connor how to lock scroll bars - DONE.
-// how to clear shake from css? - DONE
-// how to change margin of codewall - DONE. (padding of container)
