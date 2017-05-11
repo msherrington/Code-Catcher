@@ -7,7 +7,7 @@
 In the first project of the Web Development Immersive course, we were tasked with designing and developing an interactive game over seven days. I wanted to create a game which implemented the learning from the previous 2 weeks of the course, and which also challenged me to learn and develop my coding abilities further.
 
 
-####The result is... Code Catcher ([click to play](https://serene-shore-35854.herokuapp.com/))
+####The result is... Code Catcher ([click to play](https://code-catcher.herokuapp.com/))
 
 ![](./images/welcome-screen.png)
 
