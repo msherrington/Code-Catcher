@@ -1,13 +1,13 @@
-##GA WDI 25 London - Project 1
+## GA WDI 25 London - Project 1
 
-#Code Catcher
+# Code Catcher
 
-######A game of skill with an 'in joke' for Web Devs
+###### A game of skill with an 'in joke' for Web Devs
 
 In the first project of the Web Development Immersive course, we were tasked with designing and developing an interactive game over seven days. I wanted to create a game which implemented the learning from the previous 2 weeks of the course, and which also challenged me to learn and develop my coding abilities further.
 
 
-####The result is... Code Catcher ([click to play](https://code-catcher.herokuapp.com/))
+#### The result is... Code Catcher ([click to play](https://code-catcher.herokuapp.com/))
 
 ![](./images/welcome-screen.png)
 
@@ -15,7 +15,7 @@ In the first project of the Web Development Immersive course, we were tasked wit
 
 ***
 
-###The rules are simple:
+### The rules are simple:
 
 * Use the left/right arrow keys to move the coder.
 * Catch falling pieces of code to build your score.
@@ -34,7 +34,7 @@ In the first project of the Web Development Immersive course, we were tasked wit
 
 ![](./images/game-play.png)
 
-###How it works
+### How it works
 
 The transparent white game play area (codewall) has 10 equally positioned divs (columns) positioned across the top. Before the game starts, these column divs are hidden.
 
@@ -50,13 +50,13 @@ Additionally, if a bug image is caught, a shake animation is run on the coder an
 
 The falling images are linked to the timer, so a new div falls every second. However the duration of the fall is decreased slightly each time, so the gameplay becomes faster and more hectic as the timer runs out.
 
-####The build
+#### The build
 
 * HTML 5, CSS and jQuery were used to create the game.
 * The Google Web Font 'Orbitron' has been used to style the text.
 
 
-###Problems & Challenges
+### Problems & Challenges
 
 The first challenge was working out how to detect when the coder caught a code or bug (a div collision). I had to use the progress function of .animate to track both the coder and the falling div to manually work out a range of their positions. Using a range instead of set positions mean that a catch is more achievable, but using a range also created a problem. As both the div and coder passed through that range, a catch was recorded up to 18 times, drastically affecting the score. My solution was to create a variable to store the catch result, and update the score based on that variable, before resetting the variable to null.
 
@@ -65,18 +65,18 @@ Another problem was setting boundaries for the coder's movements. The coder is a
 The biggest challenge was in the function which randomly assigns an image to a div. It was sometimes re-assigning a div's image while it was mid-fall. This meant that a bug could change it's image to code mid-animation but when caught it would deduct points as a bug normally would. I created an if else statement to detect if the image was currently being animated before it assigned an image to the div. However this didn't stop images being reassigned on the fade-in before the animation starts. I had to remove the if else statement and create a while loop which would choose a different div if the chosen one was already being animated. That seems to have resolved the issue.
 
 
-###Future Improvements
+### Future Improvements
 
 Going forward, I would like to make the following improvements to the game...
 
-######Functionality
+###### Functionality
 * CSS responsiveness - allow the game to work on other screen sizes.
 * Increase the speed of the coder's movements as the divs fall faster, allowing for more skilled gameplay at faster speeds.
 * Time bonuses for score 'checkpoints'.
 * Decrease the 1 second gap between each code/bug falling as the game speeds up - will need to separate it from the timer.
 * Set defined boundaries for the coder's movements.
 
-######Styling
+###### Styling
 * When the game ends, move the final score to just above the 'Play Again' button.
 * Include a High Score box to provide a competitive edge for multiple players.
 * Make the timer background flash red for the last 5 seconds of the game.
